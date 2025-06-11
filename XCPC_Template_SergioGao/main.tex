@@ -23,6 +23,13 @@
 }
 % 用 listings 来展示代码
 
+\usepackage[
+    hidelinks,         % 不标色也不加框，保持外观整洁
+    bookmarksopen=true,% 打开时书签默认展开
+    bookmarksnumbered=true, % 书签带章节号
+    unicode=true       % 书签支持Unicode，防止中文乱码
+]{hyperref}
+
 \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 % ctexbook 默认边距太大，有点浪费资源。在这里调一下
 
