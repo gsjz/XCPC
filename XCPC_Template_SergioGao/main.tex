@@ -1,0 +1,91 @@
+% 整个文档的主文件。只需要在这个地方编译一次即可。
+
+\documentclass[openany]{ctexbook}      
+% 支持中文的书籍文档类
+% [openany] 就是单面打印的意思。如果把这个去掉后，
+% 则每次 include 都会自动空页来保证每章第一页都在奇数页。
+
+\usepackage{pdfpages}
+
+\usepackage{listings}
+\usepackage{xcolor} %（可选，为了高亮配色）
+\lstset{
+  language=C++,               % 代码类型
+  basicstyle=\ttfamily\footnotesize, % 代码字体小号等宽
+  keywordstyle=\color{blue},  % 关键词蓝色
+  commentstyle=\color{gray},  % 注释灰色
+  stringstyle=\color{orange}, % 字符串橙色
+  numbers=right,               % 行号在左
+  numberstyle=\tiny\color{gray},
+  breaklines=true,            % 自动换行
+  frame=single,               % 框出代码区域
+  columns=fullflexible,
+}
+% 用 listings 来展示代码
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+% ctexbook 默认边距太大，有点浪费资源。在这里调一下
+
+\title{XCPC 算法竞赛模板}
+\author{Sergio Gao}
+
+\renewcommand\contentsname{\songti\zihao{2} 目\quad 录}
+\ctexset{
+    chapter = {
+        format = \centering\zihao{2}\songti\bfseries, % 居中，宋体，large字号
+        name = {第\space, \space 章},
+        number = \arabic{chapter},
+    }
+}
+\ctexset{
+    section = {
+        format = \centering\zihao{-2}\songti\bfseries, 
+    }
+}
+\ctexset{
+    subsection = {
+        format = \centering\zihao{-3}\songti\bfseries, 
+    }
+}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+
+\include{Graph_Theory/intro}
+\include{Graph_Theory/algorithms/tarjan/intro}
+\include{Graph_Theory/algorithms/tarjan/tarjan_scc}
+\include{Graph_Theory/algorithms/flow/intro}
+\include{Graph_Theory/algorithms/flow/dinic_flow}
+\include{Graph_Theory/algorithms/flow/dijkstra_flow}
+
+\include{Convex_Optimization/intro}
+\include{Convex_Optimization/algorithms/monge/intro}
+\include{Convex_Optimization/algorithms/monge/monge_dp}
+\include{Convex_Optimization/algorithms/monge/wqs_monge_dp}
+
+\include{Computing_Geometry/intro}
+\include{Computing_Geometry/algorithms/random_methods/intro}
+\include{Computing_Geometry/algorithms/random_methods/least_common_circle}
+
+\include{Math/intro}
+\include{Math/algorithms/number_theory/intro}
+\include{Math/algorithms/number_theory/primitive_root}
+\include{Math/algorithms/number_theory/dujiao_sieve}
+\include{Math/algorithms/polynomials/intro}
+\include{Math/algorithms/polynomials/NTT}
+
+% 我的文件管理规范：
+% 对于大类，新建一个文件夹。
+% 里面写一个 intro.tex，新起一个 chapter，顺便来介绍这个大类的总体内容
+% 然后再建一个二级文件夹。
+% 里面放各种算法的 .tex 和 .cpp
+% 同理可以再在建三级文件夹。一般不建议四级以上
+
+
+\end{document}
+
+
