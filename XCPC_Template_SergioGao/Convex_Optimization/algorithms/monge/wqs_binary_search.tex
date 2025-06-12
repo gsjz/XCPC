@@ -1,0 +1,23 @@
+\subsection{预备节：WQS 二分}
+
+\href{https://www.luogu.com.cn/problem/P2619}{P2619 [国家集训队]Tree I - 洛谷}
+
+洛谷题解质量有点差，很多都看不出和 wqs 二分有什么关系。
+
+这样思考，设 $g_x$ 是恰选中 $x$ 条白边的最小权。那么 $f(x) := g_x - \lambda x$ 就是给这 $x$ 条白边的权值减去 $\lambda$ 的惩罚代价后的权值，那么 $g_x-\lambda x$ 的最小值在什么地方取到？这等价于提前给所有白边都减去 $\lambda$，然后跑 mst。这有什么意义呢？
+
+考虑 $(need-1, g_{need-1})$ 和 $(need, g_{need})$，当 $\lambda$ 恰好等于这两个点的斜率时，如果能有下凸性，并且同取最小值的时候可以取 $x$ 大的，这时候就会取到后面的那个作为最小值的 $x$ 点（如果取到 $>need$ 的其实同理可以往回取）。
+
+当 $\lambda$ 大于这两个点的斜率时，$< need$ 的部分 比 大于等于 $\ge need$ 的部分不优。
+
+当 $\lambda$ 大于这两个点的斜率时，$< need$ 的部分 比 大于等于 $\ge need$ 的部分更优。
+
+所以二分这个惩罚代价，使得 $p = \max\{pos : f(pos) = \min_{x}\{f(x)\}\}$ 位于 $\ge need$ 部分，那么必然通过调整使得 $f(need) = f(p)$。
+
+貌似有道更难一点的：\href{https://www.luogu.com.cn/problem/P5633}{P5633 最小度限制生成树 - 洛谷}。
+
+\href{https://www.luogu.com.cn/problem/P1912}{P1912 [NOI2009] 诗人小G - 洛谷}
+
+\href{https://www.luogu.com.cn/article/e362a4cs}{题解 P1912 【[NOI2009]诗人小G】 - 洛谷专栏}
+
+\lstinputlisting{Convex_Optimization/algorithms/monge/wqs_binary_search.cpp}

@@ -1,2 +1,36 @@
-\section{四边形不等式相关优化 DP}
+\section{四边形不等式相关}
 
+要讨论的是这样的一类问题
+
+$$
+f(j) = \min_{i\le j}  w(i,j)
+$$
+
+关于某些 $w$ 满足四边形不等式的证明：
+
+(i) 
+把不等式写出来后，由于实质上只是左端点交换了一下，只与左端点有关的或者只与右端点有关的并不会改变，两边长得一样的，可以消去；常量更加可以消去了。
+for example, 有时候 $w(i,j)$ 可能会被替换成 $w'(i,j) = dp[i-1] + w(i,j)$，然而 $dp[i-1]$ 这一项只与左端点有关，所以其是否满足四边形不等式并不会被改变。还有就像是 $\lambda(j-i+1)$ 这种可以被拆成左、右端点独立作用的也会被消去。
+
+(ii)
+通过一点小技巧，可以发现 $i<i+1\le j < j+1$ for $j=j_0,j_0+1$ 满足四边形不等式 $\implies$ $i<i+1\le j < j+2$ 满足四边形不等式，同理可以如此扩展左端点。
+所以可以只证明左端点相差 $1$ 与右端点相差 $1$ 的情况。
+
+(iii)
+对于显式的、可求二阶导的下凸函数 $f$，$w(i,j) := f(j-i)$，证明则不需要这么麻烦。稍微推导可以发现无非是要说明对于 $a< b\le c< d$ at the same time $a+d = b+c$，which actually represent the length of the 4 mentioned intervals，we have $f(b) + f(c) \le f(a)+f(d)$。FYI, there's a special interpretation on "intersect $\le$ include", which is "equal $\le$ different"。这样的话其实就是要说明 $f(b) - f(a) \le f(d) - f(c)$，然而 $b-a = d-c$，从而就是要说明 $f(a+\Delta) - f(a) \le f(c+\Delta) - f(c)$。这几乎就是下凸性质的定义。
+
+(iv)
+\href{https://rebxe.github.io/post/jue-ce-dan-diao-xing-you-hua-dp-xue-xi-bi-ji/}{决策单调性优化 dp 学习笔记 | Exber's Blog}
+上述性质似乎可以扩展（但没有提供证明），如果 $w(l,r)$ 满足区间包含单调性和四边形不等式，$f(x)$ 为下凸函数，则：
+\begin{itemize}
+    \item $f(w(l,r))$ 满足四边形不等式
+    \item 如果 $f(x)$ 单调不降（也就是没有触底反弹那一段），则 $f(w(l,r))$ 还满足区间包含单调性
+\end{itemize}
+
+(v)
+还有一些问题，在考虑四边形不等式进行代数运算时，不妨考虑对于三个区间 $[l_1,l_2],[l_2,r_1],[r_1,r_2]$ 分别设一些变量，这样代数证明会明显一点。比如说证明
+$$
+f(s_1+s_2) + f(s_2+s_3) \le f(s_1+s_2+s_3) + f(s_2)
+$$
+
+对于区间划分型 dp，\textbf{听说}恰经过 $k$ 条边蒙日矩阵最短路关于 $k$ 是下凸的。

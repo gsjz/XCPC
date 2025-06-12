@@ -7,6 +7,8 @@
 
 \usepackage{pdfpages}
 
+
+
 \usepackage{listings}
 \usepackage{xcolor} %（可选，为了高亮配色）
 \lstset{
@@ -30,11 +32,23 @@
     unicode=true       % 书签支持Unicode，防止中文乱码
 ]{hyperref}
 
+\hypersetup{
+    colorlinks=true,    % 使用彩色文字（非边框）
+    linkcolor=blue,     % 内部链接颜色
+    urlcolor=red,       % URL链接颜色
+    citecolor=magenta    % 引用颜色
+}
+
 \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 % ctexbook 默认边距太大，有点浪费资源。在这里调一下
 
+\usepackage{amsmath}
+% \implies 蜜汁不能用
+
 \title{XCPC 算法竞赛模板}
 \author{Sergio Gao}
+
+
 
 \renewcommand\contentsname{\songti\zihao{2} 目\quad 录}
 \ctexset{
@@ -72,6 +86,7 @@
 \include{Convex_Optimization/intro}
 \include{Convex_Optimization/algorithms/monge/intro}
 \include{Convex_Optimization/algorithms/monge/monge_dp}
+\include{Convex_Optimization/algorithms/monge/wqs_binary_search}
 \include{Convex_Optimization/algorithms/monge/wqs_monge_dp}
 
 \include{Computing_Geometry/intro}

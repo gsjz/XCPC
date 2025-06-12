@@ -1,11 +1,8 @@
 #include<bits/stdc++.h>  
 using namespace std; 
-
 const int N = 1e6 + 5;
-
 int n, a[N], ans[N];
 int ceilsq[N];
-
 double f(int i, int j)
 {
     return a[j] -a[i] + -sqrt(j-i);
