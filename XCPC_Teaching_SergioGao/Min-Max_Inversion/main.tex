@@ -1,0 +1,44 @@
+%!TeX program = xelatex
+\documentclass{beamer}
+\usepackage[UTF8,noindent]{ctex} % 中文支持
+\usepackage{amsthm}
+\usepackage{underscore}
+
+\usetheme{Frankfurt} 
+% 主题框架
+% to choose: Boadilla 简洁; Goettingen 默认右侧目录 ;
+% Frankfurt 顶部小圆点
+
+\usecolortheme{rose} 
+% 蓝色调主题
+% Beamer 还自带多种配色主题，比如：
+% default
+% dolphin 紫色
+% seagull 灰色
+% crane 橙色
+% rose 蓝色，框框好看
+
+\setbeamertemplate{navigation symbols}{} % 隐藏默认导航按钮
+
+
+
+% 在页眉显示目录
+
+
+% 标题设置
+\title{min-max 容斥题目选讲}
+\author{Sergio Gao}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\include{Chapters/1/1}
+
+\include{Chapters/2/1}
+
+
+\end{document}

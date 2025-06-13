@@ -1,0 +1,178 @@
+\section{Bingo 模型}
+
+\begin{frame}
+  \frametitle{Bingo 模型描述}
+
+  给定一个 $n\times m$ 的棋盘。
+  
+  说到棋盘，自然可以定义其行/列。
+  由于它们有类似的结构，我们定义 strip 来统称这两类元素。
+  
+  strips 之间允许有交。
+
+  通过等概率过程让一些数填充到这个棋盘上。
+
+  假设一些 strips 构成集合 $STRIPS$。
+  包含所有 strips 的记作 $STRIPS_0$。
+
+  对于一种填充方案 $\{b_{nm}\}$，定义最小 bingo 数为：
+  $$
+  \min_{I\in STRIPS_0}\{\max_{i \in I}\{ b_i\}\}
+  $$
+
+  求所有填充方案最小 bingo 数的总和。（对于无限过程，则改为求期望）。
+  
+  把内部套的那层看作 strip 到实数的映射 $G(I):=\max_{i \in I}\{ b_i\}$， 则由 min-max 容斥，明显下面的式子成立
+
+\end{frame}
+
+\begin{frame}
+
+  $$
+  \min_{I\in STRIPS_0}\{G(I)\} = 
+  \sum_{
+    \emptyset\not= STRIPS \subseteq STRIPS_0  
+  }
+  (-1)^{|STRIPS|-1}
+  \max_{I\in STRIPS}\{G(I)\}
+  $$  
+
+  考虑这个求和式的局部
+  $$
+  \max_{I\in STRIPS}\{G(I)\} = \max_{I\in STRIPS}\{\max_{i \in I}\{ b_i\}\}
+  $$
+
+  很容易发现，他就是 STRIPS 内 strips 交出来的这些元素，
+  求当前填充方案下这些元素的最大值。
+  
+  由于填充过程是等概率的，这个值往往只和去重后、具体含了多少个元素相关。
+  对于 $r$ 行 $c$ 列，里面显然有 $r\cdot m + c\cdot n - r\cdot c$ 个元素。（这也算一个简单的容斥）
+  
+  所以我们预处理出 $F(\text{cnt}), \text{cnt} = 1,2,\cdots, n\cdot m$，然后暴力累加
+  $$
+  \sum_{r+c\ge 1, r=0,1,\cdots,n, c = 0,1,\cdots, m}
+  (-1)^{r+c-1}\binom{n}{r}\binom{m}{c} F(r\cdot m + c\cdot n - r\cdot c)
+  $$
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{【2024ICPC-Nanjing】I. Bingo}
+
+  \begin{block}{题目描述（简化）}
+  给定两个整数 $n$、$m$，以及一个长度为 $n\cdot m$ 的整数序列 $a_1, a_2, \cdots, a_{nm}$，我们要用这些整数填充一个 $n$ 行 $m$ 列的网格。
+
+  对于一种填充方案 $\{b_{nm}\}$，定义最小 bingo 数为：
+
+  $$
+  \min_{\text{strip }I}\{\max_{i \in I}\{ b_i\}\}
+  $$
+
+  请计算所有该序列排列（共 $(nm)!$ 种）下最小 bingo 数的总和。由于答案可能很大，请输出结果对 $998\,244\,353$ 取模。
+  \end{block}
+
+\end{frame}
+
+\begin{frame}
+  \newcommand{\cnt}{\text{cnt}}
+
+  这题要预处理的是，选中长度为 $n\cdot m$ 的整数序列中的 $\cnt$ 个元素后，遍历所有排列，
+  这些元素最大值的累加。
+  
+  容易想到这样的做法：不妨把输入的 $\{a\}$ 排序，从头到尾扫一遍，目前扫到 $k$，
+  数一下有多少种排列这个元素是最右边的。$\binom{k-1}{\cnt-1}$。
+  可以看出 $k$ 从 $\cnt$ 遍历到 $n\cdot m$。
+
+  请注意 $n\cdot m$ 是常数，后面我们会发现它的锚点作用。
+  
+  总之
+
+  $$
+  F(\cnt) = \sum_{k = \cnt }^{n\cdot m} \binom{k-1}{\cnt - 1} a_{k}
+  $$
+
+  简单拆一下组合数，把与 $k$ 无关的因子提出来
+
+  $$
+  \frac{F(\cnt)}{\cnt!} = \sum_{k = \cnt }^{n\cdot m} (k-\cnt)! \times \left( (k-1)!a_{k} \right)
+  $$  
+
+  这个能高效求吗？
+
+\end{frame}
+
+\begin{frame}
+  \newcommand{\cnt}{\text{cnt}}
+
+  $$
+  \sum_{k = \cnt }^{n\cdot m} (k-\cnt)! \times \left( (k-1)!a_{k} \right)
+  $$
+
+  我特意区分了简单的数值乘法 $\cdot$ 和特殊意味的乘法 $\times$。
+
+  看左边，是从 $0$ 开始增到 $n\cdot m - \cnt$。这里 $0$ 是一个锚点。
+
+  看右边，是从 $\cnt$ 开始增到 $n\cdot m$。这里 $n\cdot m$ 是一个锚点。
+
+  what if... 把右边 reverse 成从 $0$ 开始增到 $n\cdot m - \cnt$？
+
+  原本同步的 $k$，右边 reverse 后，就变成一个增 1 一个减 1 了。
+
+  枚举下标总和固定，想到了什么？这完全就是两个数组的卷积的某一位！最好能先想象出卷积过程的图形，再符号化成公式
+
+  $$
+  ( \{ N! \}* \{ c_{N} \} )_{\cnt} = \sum\limits_{j=0}^{n\cdot m -cnt} j! \times c_{\cnt-j}
+  $$
+
+  只需要定义 $c_{n\cdot m - j} = (j-1)! \cdot a_j  $ 就等价了。除了提取操作，不包含 $cnt$，所以 uniformly 用 NTT 预处理一下。
+  
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{【杭电春季联赛25】宾果游戏}
+  
+  \begin{block}{题目描述}  
+    一个 $n \times m$ 的表格，玩 bingo 游戏。
+
+    每轮随机报出一个位置，在表格中给这个位置做上标记，
+    当某一行/一列上的格子全部被标记时，游戏结束。
+
+    表格中有 $k$ 个位置被墨水污染无法做上标记。
+
+    请注意，主持人依然会报出被墨水污染的位置，也就是说，每个位置被报到的概率都还是 $\dfrac{1}{n \times m}$。
+
+    请输出游戏结束的期望轮数对 998244353 取模的结果，若游戏无法结束，则输出-1。
+
+  \end{block}
+
+  这题属于是训练性质的缝合题，我们只列出关键 trick。剩余内容可以从其它题中找到。
+
+\end{frame}
+
+\begin{frame}
+
+  \begin{exampleblock}{题意转化}
+    给每个位置赋予一个最早被标记的时间。
+    
+    某个 strip $I$ 全被标记的最早时间 $G(I)$，也就是其包含的元素的最大值。
+    某个 strip $I$ 全被标记就结束了，所以就是 $\min\{G(I)\}$。
+    
+    所以还是在求最小 bingo 数。
+
+  \end{exampleblock}  
+
+  此外还需要一个模型
+
+  \begin{exampleblock}{部分抽奖问题 Partial Coupon Collector Problem}
+    对于 $N$ 个等概率发生的事件，单位时间只能发生一个，如果选中 $k$ 个，那么这 $k$ 个全部发生过（也就是最晚的那个发生）的时间期望是 
+    
+    $$
+    \frac{1}{k/N} + \frac{1}{(k-1)/N} + \cdots+\frac{1}{1/N}
+    $$
+
+    这可以简单地通过考虑几何分布得到（即期望等于概率的倒数）
+
+  \end{exampleblock}
+
+\end{frame}
