@@ -9,6 +9,7 @@
 *.out
 *.nav
 *.snm
+*.thm
 
 .vscode
 build/
