@@ -11,6 +11,11 @@ long long modpower(long long x, int idx)
 }
 void findg()
 {
+	if(P==2)
+	{
+		g = 1;
+		return;
+	} 
 	g = -1;
 	vector<int> d;
 	for(int i=1; i*i<= (P-1); i++)
