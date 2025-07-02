@@ -1,0 +1,44 @@
+\subsection{李超线段树}
+
+\subsubsection{值域 $10^6$，针对线段}
+
+要求在平面直角坐标系下维护两个操作：
+
+\begin{itemize}
+    \item 在平面上加入一条线段。记第 $i$ 条被插入的线段的标号为 $i$。
+    \item 给定一个数 $k$，询问与直线 $x = k$ 相交的线段中，交点纵坐标最大的线段的编号。
+\end{itemize}
+
+\lstinputlisting{Convex_Optimization/Convex_Datastructure/lichao_tree1.cpp}
+
+这个模板其实可能不够好，也不常用。主要是它的时间复杂度会和定义域大小相关。有些问题要查 1e9 就寄了。
+
+\subsubsection{值域 $10^9$，针对直线}
+
+更常用的应该是没有定义域限制，功能一样，然后拿来优化一些 dp。
+
+下面这个模板展示了原来的 dp 和用李超线段树优化后的用法。
+
+\href{https://codeforces.com/contest/2107/problem/F2}{CF2107F2}
+
+\lstinputlisting{Convex_Optimization/Convex_Datastructure/lichao_tree2.cpp}
+
+有的人会误认为内存要开成 $N\log V$，其中 $V$ 为 $10^9$，而大多数情况下存一个直线是需要至少一个 int 一个 long long 的，如果 $N$ 是 $10^6$ 再乘个 30 就很容易炸。实际上这是一种误解。
+
+仔细观察实现过程，这个线段树没有分割后分别递归，而是只会往一侧走。
+
+每次存下直线后都会直接停止，从而可以知道每次 add 操作只会新建一个结点，所以内存开成 $N$ 即可。
+
+另外还有一个经典问题
+
+Q：这种问题可能是什么原因，孩子调半天没搞明白
+
+\begin{itemize}
+    
+\item 想用 vector 动态开点，每次用 .size() 来得到当前的 id（本地测试能出正确答案，OJ 上 RE）
+
+\item 也是 vector，但是定义的时候预先定义大小，另外开一个 int 类型来记录当前 id（本地测出来和 1 一样，OJ 上 AC）
+
+\end{itemize}
+
+A：递归中存在对 vector 的引用，结果中途给 vector 扩容了，导致引用失效。

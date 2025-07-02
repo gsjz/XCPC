@@ -2,7 +2,7 @@
 
 这个属于是固定套路，区间分划问题。下面给出对应模板代码情景的题解。
 
-考虑到
+\href{https://codeforces.com/gym/105486/problem/F}{2024 Chengdu Regional F} 考虑到
 
 $$
 (\sum\limits_{i=1}^{m}\frac{num_i}{k_i}) (\sum\limits_{i=1}^{m}k_i sum_i) \ge (\sum_{i=1}^{m}\sqrt{num_i\cdot sum_i})^2
@@ -19,4 +19,4 @@ WQS 二分，引入一个惩罚参数 lambda，将问题转化为：不限制分
 然后就是一个典型的区间分拆问题，这类问题\textbf{听说}只要把四边形不等式证出来了，则可推出 Monge 最短路关于 经过的边数 $k$（即拆分组数）有下凸性。
 这题貌似没有说清楚能不能让 $num_i=0$，即某个区间为空，即只需要区间数 $\le m$ 而非恰好 $m$。但看起来通过一点调整可以说明组数越多越好。所以关于组数应该是一个下凸的减函数。
 
-\lstinputlisting{Convex_Optimization/algorithms/monge/wqs_monge_dp.cpp}
+\lstinputlisting{Convex_Optimization/monge/wqs_monge_dp.cpp}
