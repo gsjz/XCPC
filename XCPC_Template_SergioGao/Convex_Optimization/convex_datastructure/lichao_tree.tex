@@ -42,3 +42,13 @@ Q：这种问题可能是什么原因，孩子调半天没搞明白
 \end{itemize}
 
 A：递归中存在对 vector 的引用，结果中途给 vector 扩容了，导致引用失效。
+
+\subsubsection{若干个树共享内存池}
+
+有些题目得不同组分别维护李超树，也不太能事先知道每棵加进的直线数，只保证加进的直线数总和，前面又说了目前这个代码不适合做 vector 扩容，
+那么目前只能共享一下内存池。由于我第一次知道 Cpp 的静态变量和 Java 不一样，类内声明完后还得在外面声明一次，所以目前的模板还有点臃肿。
+
+需要用到这个写法的题目其它部分太长，只贴一个不需要这个写法的简单题的应用 
+
+\lstinputlisting{Convex_Optimization/convex_datastructure/lichao_tree3.cpp}
+
