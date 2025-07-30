@@ -4,7 +4,7 @@ Hi, I'm Sergio Gao, right now an undergraduate student majoring in Computer Scie
 
 I'm going to attend the ICPC or CCPC for the coming 1 or 2 years, 
 which allows us to print the material for our algorithm templates in advance.
-So I build such a project, basically powered by $\TeX$.
+So I build such a project, basically powered by $\LaTeX$.
 
 My main training website is CodeForces. Here is [my profile](https://codeforces.com/profile/gsj_z).
 
