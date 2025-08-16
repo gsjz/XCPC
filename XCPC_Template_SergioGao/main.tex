@@ -1,58 +1,50 @@
-% 整个文档的主文件。只需要在这个地方编译一次即可。
-
 \documentclass[openany]{ctexbook}      
-% 支持中文的书籍文档类
-% [openany] 就是单面打印的意思。如果把这个去掉后，
-% 则每次 include 都会自动空页来保证每章第一页都在奇数页。
 
 \usepackage{pdfpages}
 
-
-
 \usepackage{listings}
-\usepackage{xcolor} %（可选，为了高亮配色）
+\usepackage{xcolor}
+
+
+\usepackage{inconsolata}
 \lstset{
-  language=C++,               % 代码类型
-  basicstyle=\ttfamily\footnotesize, % 代码字体小号等宽
-  keywordstyle=\color{blue},  % 关键词蓝色
-  commentstyle=\color{gray},  % 注释灰色
-  numbers=none,               % 行号在左
+  language=C++,               
+  basicstyle=\ttfamily\small, 
+  keywordstyle=\color{blue}, 
+  commentstyle=\color{gray},
+  numbers=none,
   numberstyle=\tiny\color{gray},
-  breaklines=true,            % 自动换行
-  frame=single,               % 框出代码区域
+  breaklines=true,
+  frame=single,
   columns=fullflexible,
 }
-% 用 listings 来展示代码
 
 \usepackage[
-    hidelinks,         % 不标色也不加框，保持外观整洁
-    bookmarksopen=true,% 打开时书签默认展开
-    bookmarksnumbered=true, % 书签带章节号
-    unicode=true       % 书签支持Unicode，防止中文乱码
+    hidelinks,         
+    bookmarksopen=true,
+    bookmarksnumbered=true, 
+    unicode=true       
 ]{hyperref}
 
 \hypersetup{
-    colorlinks=true,    % 使用彩色文字（非边框）
-    linkcolor=blue,     % 内部链接颜色
-    urlcolor=red,       % URL链接颜色
-    citecolor=magenta    % 引用颜色
+    colorlinks=true,    
+    linkcolor=blue,     
+    urlcolor=red,      
+    citecolor=magenta 
 }
 
 \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
-% ctexbook 默认边距太大，有点浪费资源。在这里调一下
 
 \usepackage{amsmath}
-% \implies 蜜汁不能用
+
 
 \title{XCPC 算法竞赛模板}
 \author{Sergio Gao}
 
-
-
 \renewcommand\contentsname{\songti\zihao{2} 目\quad 录}
 \ctexset{
     chapter = {
-        format = \centering\zihao{2}\songti\bfseries, % 居中，宋体，large字号
+        format = \centering\zihao{2}\songti\bfseries,
         name = {第\space, \space 章},
         number = \arabic{chapter},
     }
@@ -73,41 +65,15 @@
 \maketitle
 \tableofcontents
 
+\include{Graph_Theory/Graph_Theory}
 
+\include{Convex_Optimization/Convex_Optimization}
 
-\include{Graph_Theory/intro}
-\include{Graph_Theory/tarjan/intro}
-\include{Graph_Theory/tarjan/tarjan_scc}
-\include{Graph_Theory/flow/intro}
-\include{Graph_Theory/flow/dinic_flow}
-\include{Graph_Theory/flow/dijkstra_flow}
+\include{Computing_Geometry/Computing_Geometry}
 
-\include{Convex_Optimization/intro}
-\include{Convex_Optimization/monge/intro}
-\include{Convex_Optimization/monge/monge_dp}
-\include{Convex_Optimization/monge/wqs_binary_search}
-\include{Convex_Optimization/monge/wqs_monge_dp}
-\include{Convex_Optimization/convex_datastructure/intro}
-\include{Convex_Optimization/convex_datastructure/lichao_tree}
+\include{Math/Math}
 
-\include{Computing_Geometry/intro}
-\include{Computing_Geometry/random_methods/intro}
-\include{Computing_Geometry/random_methods/least_common_circle}
-
-\include{Math/intro}
-\include{Math/number_theory/intro}
-\include{Math/number_theory/primitive_root}
-\include{Math/number_theory/dujiao_sieve}
-\include{Math/polynomials/intro}
-\include{Math/polynomials/NTT}
-
-% 我的文件管理规范：
-% 对于大类，新建一个文件夹。
-% 里面写一个 intro.tex，新起一个 chapter，顺便来介绍这个大类的总体内容
-% 然后再建一个二级文件夹。
-% 里面放各种算法的 .tex 和 .cpp
-% 同理可以再在建三级文件夹。一般不建议四级以上
-
+\include{String/String}
 
 \end{document}
 

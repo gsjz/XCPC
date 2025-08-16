@@ -1,3 +1,14 @@
+\chapter{图论}
+
+主要记录一些比较常用的高级算法。
+
+\section{Tarjan 相关图论算法}
+
+叫 Tarjan 的图论算法其实有很多。所以 Tarjan 实际上可以说是一类思想。
+它可以说是洞察了 dfs 树的性质，考虑了返祖边，跨越边（对于无向图，实际上并不可能存在）等。
+
+\input{Graph_Theory/tarjan/tarjan_scc.tex}
+
 \section{网络流}
 
 网络流在 XCPC 中常考的两类：
@@ -12,3 +23,6 @@
 第二类是最小费用最大流。这类一般建完图用 Dij 费用流解决即可。
 大多数费用流算法都和其流 $f$ 相关。构造时一般是那最大流作为可以控制的约束。
 特别地，最经典的一类题型：等价于求二分图的最大权匹配。
+
+\input{Graph_Theory/flow/dinic_flow.tex}
+\input{Graph_Theory/flow/dijkstra_flow.tex}
