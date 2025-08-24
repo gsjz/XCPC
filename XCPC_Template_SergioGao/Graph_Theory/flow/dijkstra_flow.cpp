@@ -91,7 +91,7 @@ public:
         prev = vector<pair<int, int> >(n);
         int maxf = 0;
         T minc = 0;
-        h = vector<T>(n, 0);
+        h = vector<T>(n, INF);
         spfa();
         while( Dij() )
         {
