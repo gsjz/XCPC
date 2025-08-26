@@ -1,5 +1,18 @@
 \documentclass[openany]{ctexbook}      
 
+\usepackage{silence}
+% 过滤字体相关与 Underfull 提示
+\WarningFilter{latexfont}{Size substitutions}
+\WarningFilter{latexfont}{Font shape}
+\WarningFilter{latex}{Underfull \vbox}
+\WarningFilter{latex}{Underfull \hbox}
+% 降低 Underfull/Overfull 的敏感度（可选）
+\hbadness=10000
+\vbadness=10000
+
+\usepackage{microtype}
+\emergencystretch=3em
+
 \usepackage{pdfpages}
 
 \usepackage{listings}
