@@ -3,7 +3,7 @@ using namespace std;
 
 using ll = long long;
 
-const int SIZ = 1e5 + 5;
+const int SIZ = 5e5 + 5;
 
 class SAM
 {
@@ -71,7 +71,6 @@ public:
         }
     } tr[SIZ*2];
 
-    
     int tot, lst;
     void add(int c)
     {
@@ -112,13 +111,13 @@ public:
     
     int mx_len;
     int occ[SIZ * 2]; // size of endpos
+    int ord[SIZ * 2];
     void build_endpos()
     {
         vector<int> bucket(mx_len+1, 0);
         for(int i=1; i<=tot; i++) bucket[tr[i].len] ++;
         for(int i=1; i<=mx_len; i++) bucket[i] += bucket[i-1];
 
-        vector<int> ord(tot+1);
         for(int i=1; i<=tot; i++) ord[ bucket[tr[i].len] -- ] = i;
 
         for(int i=tot; i>=2; i--)
@@ -127,13 +126,15 @@ public:
             occ[tr[v].fa] += occ[v];
         }
     }
-
-
+    
     void work()
     {
-
+        build_endpos();
+        
+        /*
+        todo
+        */
     }
-
 
     SAM()
     {
@@ -143,13 +144,12 @@ public:
     }
 };
 
-
 int n;
 void solve()
 {
-    cin >> n;
     string s;
     cin>>s;
+    n = s.size();
     SAM sam;
     for(int i=1; i<=n; i++)
     {
@@ -164,16 +164,11 @@ int main()
 {
     ios::sync_with_stdio(0);
     cin.tie(0), cout.tie(0);
-
     // freopen("2.in", "r", stdin);
-
     int T=1;
     // cin>>T;
     while(T--) solve();
-    
     return 0;
 }
 /*
-
-
 */
